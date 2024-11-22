@@ -1,0 +1,95 @@
+<%- include('partials/header') %>
+
+<div class="container mt-5">
+  <h1 class="text-center">Update Your Profile</h1>
+
+  <form action="/profile" method="POST" enctype="multipart/form-data">
+    <!-- Basic Information Section -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <h3>Basic Information</h3>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" name="name" value="<%= user.name %>" required>
+        </div>
+        <div class="form-group">
+          <label for="bio">Bio</label>
+          <textarea class="form-control" id="bio" name="bio" rows="4"><%= user.bio %></textarea>
+        </div>
+        <div class="form-group">
+          <label for="profilePicture">Profile Picture</label>
+          <input type="file" class="form-control-file" id="profilePicture" name="profilePicture">
+        </div>
+      </div>
+    </div>
+
+    <!-- Skill Showcase Section -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <h3>Skill Showcase</h3>
+        <div class="form-group">
+          <label for="instruments">Instruments (comma-separated)</label>
+          <input
+            type="text"
+            class="form-control"
+            id="instruments"
+            name="instruments"
+            value="<%= user.instruments ? user.instruments.join(', ') : '' %>"
+          >
+        </div>
+        <div class="form-group">
+          <label for="genre">Genre</label>
+          <input type="text" class="form-control" id="genre" name="genre" value="<%= user.genre %>">
+        </div>
+        <div class="form-group">
+          <label for="experienceLevel">Experience Level</label>
+          <select class="form-control" id="experienceLevel" name="experienceLevel">
+            <option value="Beginner" <%= user.experienceLevel === 'Beginner' ? 'selected' : '' %>>Beginner</option>
+            <option value="Intermediate" <%= user.experienceLevel === 'Intermediate' ? 'selected' : '' %>>Intermediate</option>
+            <option value="Expert" <%= user.experienceLevel === 'Expert' ? 'selected' : '' %>>Expert</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Portfolio Section -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <h3>Portfolio</h3>
+        <% if (user.portfolio && user.portfolio.length > 0) { %>
+          <div class="row">
+            <% user.portfolio.forEach(function (item) { %>
+              <div class="col-md-4 mb-3">
+                <% if (item.type === 'audio') { %>
+                  <audio controls>
+                    <source src="<%= item.url %>" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                  </audio>
+                <% } else if (item.type === 'video') { %>
+                  <video controls width="100%">
+                    <source src="<%= item.url %>" type="video/mp4">
+                    Your browser does not support the video element.
+                  </video>
+                <% } %>
+                <p><a href="/delete-portfolio/<%= item.id %>" class="btn btn-danger btn-sm mt-2">Delete</a></p>
+              </div>
+            <% }) %>
+          </div>
+        <% } else { %>
+          <p>No portfolio items uploaded yet.</p>
+        <% } %>
+        <div class="form-group">
+          <label for="portfolioItem">Upload Portfolio Item</label>
+          <input type="file" class="form-control-file" id="portfolioItem" name="portfolioItem">
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="text-center">
+      <button type="submit" class="btn btn-success">Save Profile</button>
+    </div>
+  </form>
+</div>
+
+<%- include('partials/footer') %>
