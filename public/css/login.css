@@ -1,6 +1,6 @@
 
       body {
-        background: linear-gradient(135deg, #000000 0%, #fd5d00 100%);
+        background: linear-gradient(135deg, #000000 0%, #5a5959 100%);
         min-height: 100vh;
         display: flex;
         align-items: center;
@@ -8,10 +8,10 @@
         font-family: 'Arial', sans-serif;
       }
       .form-signin {
-        background: #fff;
+        background: #000000;
         padding: 2rem;
         border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 10px rgba(219, 7, 7, 0.2);
       }
       .form-signin img {
         display: block;
@@ -36,3 +36,4 @@
         margin-right: 8px;
         font-size: 1.2rem;
       }
+      
